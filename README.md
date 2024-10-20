@@ -10,6 +10,12 @@ poetry add pathtmpl
 ## Usage
 
 ```python
+import uuid
+from pathlib import PurePath
+from datetime import date as Date
+from pathtmpl import DocumentContext, CField, get_evaluated_path
+
+
 path_tmpl = """
 {% if document.cf['Effective Date'] %}
     /home/Tax/{{ document.cf['Effective Date'] | datefmt("%Y") }}.pdf

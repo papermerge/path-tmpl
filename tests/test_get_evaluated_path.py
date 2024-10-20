@@ -2,8 +2,7 @@ import uuid
 from datetime import date as Date
 from pathlib import PurePath
 
-from pathtmpl.template import get_evaluated_path
-from pathtmpl.models import CField, DocumentContext
+from pathtmpl import get_evaluated_path, CField, DocumentContext
 
 
 def test_get_evaluated_path_title():
