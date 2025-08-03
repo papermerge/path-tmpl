@@ -16,3 +16,11 @@ updates:
     open-pull-requests-limit: 10
     assignees:
       - "renehezser"
+
+  - package-ecosystem: docker
+    directory: "/.devcontainer"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    assignees:
+      - "renehezser"
