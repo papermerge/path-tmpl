@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pathtmpl"
-version = "0.2.0"
+version = "0.2.1"
 description = "Path Template"
 authors = ["Eugen Ciur <eugen@papermerge.com>"]
 readme = "README.md"
