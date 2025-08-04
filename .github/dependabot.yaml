@@ -12,9 +12,3 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
-
-  - package-ecosystem: docker
-    directory: "/.devcontainer"
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 10
