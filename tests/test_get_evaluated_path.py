@@ -7,7 +7,15 @@ from pathtmpl import get_evaluated_path, Context
 
 def test_get_evaluated_path_as_folder():
     """Folder path end with '/' """
-    doc = Context(title="coco", id=uuid.uuid4(), year=2025, day=11, month=12, file_name = "invoice.pdf")
+    doc = Context(
+        title="coco",
+        id=uuid.uuid4(),
+        year=2025,
+        day=11,
+        month=12,
+        file_name="invoice.pdf",
+        category="Invoice"
+    )
     ev_path = get_evaluated_path(doc, path_template="/My Documents/Receipt/")
 
     assert ev_path == "/My Documents/Receipt/"
@@ -21,7 +29,8 @@ def test_get_evaluated_path_as_document_without_templating():
         year=2025,
         day=11,
         month=12,
-        file_name="invoice.pdf"
+        file_name="invoice.pdf",
+        category="Invoices"
     )
     ev_path = get_evaluated_path(doc, path_template="/My Documents/coco")
 
@@ -35,7 +44,8 @@ def test_get_evaluated_path_title():
         year=2025,
         day=11,
         month=12,
-        file_name = "invoice.pdf"
+        file_name = "invoice.pdf",
+        category="Invoices"
     )
     ev_path = get_evaluated_path(doc, path_template="/Invoices/{{ title }}")
 
@@ -49,7 +59,8 @@ def test_get_evaluated_path_id():
         year=2025,
         day=11,
         month=12,
-        file_name="invoice.pdf"
+        file_name="invoice.pdf",
+        category="Invoices"
     )
     ev_path = get_evaluated_path(
         doc,
@@ -66,7 +77,8 @@ def test_get_evaluated_path_with_year():
         id=uuid.uuid4(),
         year=2025,
         day=11,
-        month=12
+        month=12,
+        category="Invoices"
     )
     ev_path = get_evaluated_path(
         context,
@@ -75,5 +87,26 @@ def test_get_evaluated_path_with_year():
 
     expected_path = PurePath(
         f"/Invoices/2025/Invoice from Tom/invoice.pdf_{context.id}"
+    )
+    assert PurePath(ev_path) == expected_path
+
+
+def test_get_evaluated_path_with_category():
+    context = Context(
+        file_name="receipt.pdf",
+        title="Receipt from ALDI",
+        id=uuid.uuid4(),
+        year=2025,
+        day=11,
+        month=12,
+        category="Grocery Receipts"
+    )
+    ev_path = get_evaluated_path(
+        context,
+        path_template="/{{ category }}/{{ year }}/{{ file_name }}",
+    )
+
+    expected_path = PurePath(
+        "/Grocery Receipts/2025/receipt.pdf"
     )
     assert PurePath(ev_path) == expected_path
