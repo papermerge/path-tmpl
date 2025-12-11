@@ -13,32 +13,26 @@ poetry add pathtmpl
 import uuid
 from pathlib import PurePath
 from datetime import date as Date
-from pathtmpl import DocumentContext, CField, get_evaluated_path
+from pathtmpl import Context, get_evaluated_path
 
 
 path_tmpl = """
-{% if document.cf['Effective Date'] %}
-    /home/Tax/{{ document.cf['Effective Date'] | datefmt("%Y") }}.pdf
-{% else %}
-    /home/Tax/{{ document.id }}.pdf
-{% endif %}
+  /Tax/{{ year }}/{{ file_name}}
 """
-custom_fields = [
-    CField(name="Total", value=245.02),
-    CField(name="Effective Date", value=Date(2024, 12, 23)),
-]
-doc = DocumentContext(
+doc = Context(
     id=uuid.uuid4(),
-    title="coco",
-    custom_fields=custom_fields,
+    title="My Tax Declaration",
+    file_name="elster_doc.pdf",
+    year=2025,
+    month=12,
+    day=11,
 )
 
 ev_path = get_evaluated_path(doc, path_template=path_tmpl)
-assert ev_path == PurePath("/home/Tax/2024.pdf")
+assert ev_path == PurePath("/home/Tax/2025/elster_doc.pdf")
 ```
 
 ## Tests
-
 
 ```shell
 poetry run pytest
