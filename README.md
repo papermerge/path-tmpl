@@ -3,7 +3,7 @@
 ## Install
 
 ```shell
-poetry add pathtmpl
+  uv add pathtmpl
 ```
 
 
@@ -82,8 +82,9 @@ ev_path = get_evaluated_path(context, path_template="/My Documents/Receipt/")
 assert ev_path == "/My Documents/Receipt/"
 ```
 
-## Tests
+## Run Tests
 
 ```shell
-poetry run pytest
+uv sync --group dev
+uv run pytest
 ```
